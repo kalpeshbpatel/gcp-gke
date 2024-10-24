@@ -793,9 +793,9 @@ variable "gkeaddons" {
   description = "Configuration map for GKE addons"
   type = map(object({
     enable    = bool
-    name      = string
+    name      = optional(string)
     namespace = optional(string)
-    version   = string
+    version   = optional(string)
     property  = optional(map(string))
   }))
 }
