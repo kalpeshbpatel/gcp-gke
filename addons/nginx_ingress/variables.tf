@@ -20,7 +20,7 @@ variable "enable" {
 
 variable "name" {
   type    = string
-  default = "cert-manager"
+  default = "ingress-nginx"
 }
 
 variable "namespace" {
@@ -30,7 +30,7 @@ variable "namespace" {
 
 variable "release_version" {
   type    = string
-  default = "1.16.1"
+  default = "4.11.3"
 }
 
 variable "replicas" {
