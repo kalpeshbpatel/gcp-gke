@@ -4,7 +4,7 @@ locals {
   }
 
   values = templatefile(
-    "${path.module}/cert-manager.tmpl",
+    "${path.module}/helm-values.tmpl",
     local.vars
   )
 }

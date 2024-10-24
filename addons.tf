@@ -38,4 +38,7 @@ module "external_dns" {
   name            = coalesce(try(var.gkeaddons["external_dns"].name, null), "external-dns")
   namespace       = coalesce(try(var.gkeaddons["external_dns"].namespace, null), "kube-addons")
   release_version = coalesce(try(var.gkeaddons["external_dns"].version, null), "8.3.9")
+  dns_project_id  = try(var.gkeaddons["external_dns"].property.dns_project_id, null)
+  zone            = coalesce(try(var.gkeaddons["external_dns"].property.zone, null), "demo.live")
+  domain          = coalesce(try(var.gkeaddons["external_dns"].property.domain, null), "demo.live")
 }

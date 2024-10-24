@@ -25,7 +25,7 @@ locals {
     sa          = google_service_account.cluster_autoscaler.email
   }
   values = templatefile(
-    "${path.module}/cluster-autoscaler.tmpl",
+    "${path.module}/helm-values.tmpl",
     local.vars
   )
 }

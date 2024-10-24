@@ -1,0 +1,13 @@
+provider: google
+google:
+  project: ${project}
+  zones:
+    - ${zone}
+logLevel: ${log_level}
+policy: ${policy}
+domainFilters:
+  - "${domain}"
+txtOwnerId: external-dns
+serviceAccount:
+  annotations: 
+    iam.gke.io/gcp-service-account: ${sa}
