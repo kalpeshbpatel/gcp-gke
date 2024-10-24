@@ -1,0 +1,12 @@
+fullnameOverride: ${name}
+cloudProvider: gce
+autoDiscovery:
+  clusterName: ${clusterName}
+extraArgs:
+  balance-similar-node-groups: true
+  skip-nodes-with-system-pods: false
+priorityClassName: ""
+rbac:
+  serviceAccount:
+    annotations: 
+      iam.gke.io/gcp-service-account: ${sa}
