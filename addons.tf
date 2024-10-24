@@ -42,3 +42,18 @@ module "external_dns" {
   zone            = coalesce(try(var.gkeaddons["external_dns"].property.zone, null), "demo.live")
   domain          = coalesce(try(var.gkeaddons["external_dns"].property.domain, null), "demo.live")
 }
+
+/******************************************
+	Nginx Ingress Controller
+ *****************************************/
+module "nginx_ingress" {
+  depends_on      = [google_container_cluster.primary]
+  source          = "./addons/nginx_ingress"
+  count           = try(var.gkeaddons["nginx_ingress"].enable, false) ? 1 : 0
+  project_id      = var.project_id
+  cluster_name    = var.name
+  name            = coalesce(try(var.gkeaddons["nginx_ingress"].name, null), "ingress-nginx")
+  namespace       = coalesce(try(var.gkeaddons["nginx_ingress"].namespace, null), "kube-addons")
+  release_version = coalesce(try(var.gkeaddons["nginx_ingress"].version, null), "4.11.3")
+  replicas        = coalesce(try(var.gkeaddons["nginx_ingress"].property.replicas, null), "2")
+}

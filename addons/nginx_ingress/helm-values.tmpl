@@ -1,0 +1,12 @@
+controller:
+  replicaCount: ${replicaCount}
+  nodeSelector.kubernetes.io/os: linux
+  admissionWebhooks.patch.nodeSelector.kubernetes.io/os: linux
+  service:
+    annotations:
+      service.beta.kubernetes.io/azure-load-balancer-health-probe-request-path: /healthz
+  extraArgs:
+    enable-ssl-passthrough: true
+
+defaultBackend:
+  nodeSelector.kubernetes.io/os: linux
