@@ -1,0 +1,9 @@
+env:
+  open:
+    STORAGE: 'google'
+    STORAGE_GOOGLE_BUCKET: ${bucket}
+    DISABLE_API: 'false'
+serviceAccount:
+  create: true
+  annotations: 
+    iam.gke.io/gcp-service-account: ${sa}

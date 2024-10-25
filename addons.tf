@@ -27,6 +27,20 @@ module "cert_manager" {
 }
 
 /******************************************
+	Chartmuseum
+ *****************************************/
+module "chartmuseum" {
+  depends_on      = [google_container_cluster.primary]
+  source          = "./addons/chartmuseum"
+  count           = try(var.gkeaddons["chartmuseum"].enable, false) ? 1 : 0
+  project_id      = var.project_id
+  cluster_name    = var.name
+  name            = coalesce(try(var.gkeaddons["chartmuseum"].name, null), "chartmuseum")
+  namespace       = coalesce(try(var.gkeaddons["chartmuseum"].namespace, null), "kube-addons")
+  release_version = coalesce(try(var.gkeaddons["chartmuseum"].version, null), "3.10.3")
+}
+
+/******************************************
 	Cert Manager
  *****************************************/
 module "external_dns" {
