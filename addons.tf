@@ -35,6 +35,7 @@ module "chartmuseum" {
   count           = try(var.gkeaddons["chartmuseum"].enable, false) ? 1 : 0
   project_id      = var.project_id
   cluster_name    = var.name
+  region          = var.region
   name            = coalesce(try(var.gkeaddons["chartmuseum"].name, null), "chartmuseum")
   namespace       = coalesce(try(var.gkeaddons["chartmuseum"].namespace, null), "kube-addons")
   release_version = coalesce(try(var.gkeaddons["chartmuseum"].version, null), "3.10.3")
