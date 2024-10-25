@@ -57,3 +57,20 @@ module "nginx_ingress" {
   release_version = coalesce(try(var.gkeaddons["nginx_ingress"].version, null), "4.11.3")
   replicas        = coalesce(try(var.gkeaddons["nginx_ingress"].property.replicas, null), "2")
 }
+
+/******************************************
+	Kubernetes Dashboard
+ *****************************************/
+module "kubernetes_dashboard" {
+  depends_on      = [google_container_cluster.primary]
+  source          = "./addons/kubernetes_dashboard"
+  count           = try(var.gkeaddons["kubernetes_dashboard"].enable, false) ? 1 : 0
+  project_id      = var.project_id
+  cluster_name    = var.name
+  name            = coalesce(try(var.gkeaddons["kubernetes_dashboard"].name, null), "kubernetes-dashboard")
+  namespace       = coalesce(try(var.gkeaddons["kubernetes_dashboard"].namespace, null), "kube-addons")
+  release_version = coalesce(try(var.gkeaddons["kubernetes_dashboard"].version, null), "7.9.0")
+  ingress         = try(var.gkeaddons["cert_manager"].enable, false) && try(var.gkeaddons["nginx_ingress"].enable, false)
+  url             = coalesce(try(var.gkeaddons["kubernetes_dashboard"].property.url, null), "k8s.demo.live")
+  cert_issuer     = coalesce(try(var.gkeaddons["kubernetes_dashboard"].property.cert_issuer, null), "certmanager")
+}
