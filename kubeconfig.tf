@@ -6,7 +6,7 @@ locals {
   }
 
   kubeconfig_file = templatefile(
-    "${path.module}/templatefile/kubeconfig_template.tmpl",
+    "${path.module}/kubeconfig_template.tmpl",
     local.kubeconfig
   )
 }
