@@ -62,7 +62,7 @@ module "nginx_ingress" {
 	Kubernetes Dashboard
  *****************************************/
 module "kubernetes_dashboard" {
-  depends_on      = [google_container_cluster.primary]
+  depends_on      = [google_container_cluster.primary, module.cert_manager, module.nginx_ingress]
   source          = "./addons/kubernetes_dashboard"
   count           = try(var.gkeaddons["kubernetes_dashboard"].enable, false) ? 1 : 0
   project_id      = var.project_id
