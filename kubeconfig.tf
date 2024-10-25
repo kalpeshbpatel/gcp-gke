@@ -12,6 +12,7 @@ locals {
 }
 
 resource "local_file" "kubectl_config" {
+  depends_on      = [google_container_cluster.primary]
   content         = local.kubeconfig_file
   filename        = lower("${var.name}.kubeconfig")
   file_permission = 0600
